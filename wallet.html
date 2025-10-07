@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wallet • TikkoX</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="theme-color" content="#000000">
+  <style>:root{--bg:#000;--fg:#d4af37;--fg2:#b9992a;--card:#0b0b0b;--line:#151515}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial}
+a{color:var(--fg);text-decoration:none}
+.wrap{max-width:960px;margin:auto;padding:20px}
+header{position:sticky;top:0;background:#050505cc;backdrop-filter:blur(6px);border-bottom:1px solid var(--line);z-index:10}
+nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.brand img{width:34px;height:34px}
+.spacer{flex:1}
+.btn{border:1px solid var(--fg);padding:10px 14px;border-radius:10px;display:inline-block;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+main{min-height:70vh;display:grid;place-items:center;padding:30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;max-width:560px;width:100%;text-align:center}
+.muted{color:var(--fg2)}
+.input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--fg2);background:#000;color:#c9b27a;outline:none}
+.row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.row .btn{flex:0 0 auto}
+small{display:block;margin-top:10px;color:#8f7f57}
+footer{border-top:1px solid var(--line);padding:24px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <img src="/assets/logo.png" alt="TikkoX">
+        <span>TikkoX</span>
+      </div>
+      <a href="index.html">Home</a>
+      <div class="spacer"></div>
+      <a class="btn" href="explorer.html">Explorer</a>
+      <a class="btn" href="wallet.html">Wallet</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <img src="/assets/logo.png" alt="TikkoX" style="width:72px;height:72px;opacity:.95">
+    <h1 style="margin:12px 0 6px">Welcome to TikkoX Wallet</h1>
+    <p class="muted" style="margin:0 0 14px;">Coming soon</p>
+
+    <form id="form-wallet">
+      <input class="input" type="email" placeholder="Your email address" aria-label="Your email">
+      <div class="row">
+        <button class="btn" onclick="return sendReminder('form-wallet', 'Wallet');">Remind me via email</button>
+      </div>
+      <small>We’ll send your request to ifhsihfhgs@gmail.com</small>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2025 TikkoX</p>
+  </div>
+</footer>
+
+
+<script>
+function sendReminder(formId, product){
+  const form = document.getElementById(formId);
+  const email = form.querySelector('input[type="email"]').value.trim();
+  if(!email){ alert('Please enter your email'); return false; }
+  const to = 'ifhsihfhgs@gmail.com';
+  const subject = encodeURIComponent('Reminder request: ' + product);
+  const body = encodeURIComponent('Please notify me when ' + product + ' is live.\n\nMy email: ' + email);
+  const href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+  window.location.href = href; // opens email client
+  return false;
+}
+</script>
+
+</body>
+</html>
