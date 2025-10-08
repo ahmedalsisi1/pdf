@@ -6,8 +6,6 @@
   <title>TikkoX • Official Blockchain Network</title>
   <meta name="description" content="Official website of TikkoX Blockchain and TKOX currency. Explorer, Wallet, Pay platform, docs and roadmap." />
   <link rel="icon" type="image/png" href="/assets/logo.png" />
-
-  <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -40,13 +38,6 @@
     .social a{width:36px;height:36px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;font-size:16px}
     .social a:hover{background:var(--fg);color:var(--bg)}
   </style>
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<meta property="og:title" content="TikkoX • Official Blockchain Network">
-<meta property="og:description" content="Fast, secure Substrate-based chain powering TKOX. Explorer, Wallet, and TikkoX Pay.">
-<meta name="theme-color" content="#000000">
-<link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
 
@@ -63,8 +54,8 @@
       <a href="#developers">Developers</a>
       <a href="#community">Community</a>
       <div class="spacer"></div>
-      <a class="btn" href="explorer.html">Launch Explorer</a>
-      <a class="btn ghost" href="wallet.html">Create Wallet</a>
+      <a class="btn" href="https://explorer.tikkox.org">Launch Explorer</a>
+      <a class="btn ghost" href="https://wallet.tikkox.org">Create Wallet</a>
     </nav>
   </div>
 </header>
@@ -75,13 +66,11 @@
     <div class="wrap">
       <img src="assets/logo.png" alt="TikkoX" style="width:110px;height:110px;opacity:.95">
       <h1>Welcome to TikkoX Blockchain</h1>
-      <p>
-        A complete, integrated blockchain network powering the TKOX currency.
-        Fast, secure and developer-friendly. Explore live data, create your wallet, and build real apps on a modern Substrate-based chain.
-      </p>
+      <p>A complete, integrated blockchain network powering the TKOX currency.
+      Fast, secure and developer-friendly. Explore live data, create your wallet, and build real apps on a modern Substrate-based chain.</p>
       <div class="cta">
-        <a class="btn" href="explorer.html">🚀 Explorer</a>
-        <a class="btn" href="wallet.html">👛 Wallet</a>
+        <a class="btn" href="https://explorer.tikkox.org">🚀 Explorer</a>
+        <a class="btn" href="https://wallet.tikkox.org">👛 Wallet</a>
         <a class="btn ghost" href="https://github.com/tikkox">GitHub</a>
         <a class="btn ghost" href="roadmap.html">Roadmap</a>
       </div>
@@ -107,34 +96,14 @@
     <div class="wrap">
       <h2>Core products & status</h2>
       <div class="grid">
-        <div class="card">
-          <b>Blockchain (TikkoX Chain)</b>
-          <div class="badges"><span class="badge">Completed</span></div>
-          <p class="muted">Substrate-based node with TKOX token and secure defaults.</p>
-        </div>
-        <div class="card">
-          <b>Explorer</b>
-          <div class="badges"><span class="badge">Completed</span></div>
-          <p class="muted">Search blocks, tx and accounts with live WebSocket updates.</p>
-          <a class="btn" href="explorer.html">Open Explorer</a>
-        </div>
-        <div class="card">
-          <b>Wallet</b>
-          <div class="badges"><span class="badge">Completed</span></div>
-          <p class="muted">Create/secure accounts, hold TKOX and future multi-asset support.</p>
-          <a class="btn" href="wallet.html">Open Wallet</a>
-        </div>
-        <div class="card">
-          <b>TikkoX Pay</b>
-          <div class="badges"><span class="badge">In Progress</span></div>
-          <p class="muted">Integrated payments, transfers and trading inside the network UI.</p>
-          <a class="btn ghost" href="roadmap.html">See roadmap</a>
-        </div>
+        <div class="card"><b>Blockchain (TikkoX Chain)</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Substrate-based node with TKOX token and secure defaults.</p></div>
+        <div class="card"><b>Explorer</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Search blocks, tx and accounts with live WebSocket updates.</p><a class="btn" href="https://explorer.tikkox.org">Open Explorer</a></div>
+        <div class="card"><b>Wallet</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Create/secure accounts, hold TKOX and future multi-asset support.</p><a class="btn" href="https://wallet.tikkox.org">Open Wallet</a></div>
+        <div class="card"><b>TikkoX Pay</b><div class="badges"><span class="badge">In Progress</span></div><p class="muted">Integrated payments, transfers and trading inside the network UI.</p><a class="btn ghost" href="roadmap.html">See roadmap</a></div>
       </div>
     </div>
   </section>
 
-  <!-- DEVELOPERS -->
   <section id="developers">
     <div class="wrap">
       <h2>Developers</h2>
@@ -147,7 +116,6 @@
     </div>
   </section>
 
-  <!-- COMMUNITY -->
   <section id="community">
     <div class="wrap">
       <h2>Community</h2>
@@ -176,6 +144,7 @@
   </div>
 </footer>
 
-<script src="bot/tikkox-bot.js"></script>
+<!-- TikkoX Bot -->
+<script src="/bot/tikkox-bot.js" defer></script>
 </body>
 </html>
