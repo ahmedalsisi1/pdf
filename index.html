@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TikkoX • Official Blockchain Network</title>
   <meta name="description" content="Official website of TikkoX Blockchain and TKOX currency. Explorer, Wallet, Pay platform, docs and roadmap." />
-  <link rel="icon" type="image/png" href="/assets/logo.png" />
+  <link rel="icon" type="image/png" href="/assets/favicon-1.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -17,12 +19,17 @@
     .wrap{max-width:1200px;margin:auto;padding:14px 20px}
     nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .brand img{width:34px;height:34px}
+    .brand img{width:34px;height:34px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+    .brand.bounce img{transform:translateY(-6px) rotate(-8deg)}
     .spacer{flex:1}
     .btn{border:1px solid var(--fg);padding:10px 14px;border-radius:10px;display:inline-block;transition:.2s}
     .btn:hover{transform:translateY(-1px)}
     .btn.ghost{border-color:var(--fg2)}
-    .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:48px 20px;background:radial-gradient(ellipse at center,#111 0%,#000 60%)}
+    .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:48px 20px;background:radial-gradient(ellipse at center,#111 0%,#000 60%);position:relative;overflow:hidden}
+    /* Rotating faint giant logo in hero */
+    .hero::before{content:"";position:absolute;inset:-25%;background:url('/assets/tikkox-logo-gold.png') no-repeat center/60%;
+      filter:opacity(.12) drop-shadow(0 0 10px #d4af37);animation:tkx-spin 55s linear infinite;pointer-events:none}
+    @keyframes tkx-spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}
     .hero h1{font-size:40px;margin:16px 0}
     .hero p{color:var(--fg2);max-width:760px;margin:0 auto 22px;line-height:1.85}
     .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -37,6 +44,10 @@
     .social{margin-top:20px;display:flex;justify-content:center;gap:14px}
     .social a{width:36px;height:36px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;font-size:16px}
     .social a:hover{background:var(--fg);color:var(--bg)}
+
+    /* Entry mini-logo animation (favicon swap) */
+    @keyframes tkx-pulse {0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)}}
+    .brand img.pulse {animation: tkx-pulse 1.2s ease-in-out 3}
   </style>
 </head>
 <body>
@@ -44,8 +55,8 @@
 <header>
   <div class="wrap">
     <nav>
-      <div class="brand">
-        <img src="/assets/logo.png" alt="TikkoX logo">
+      <div class="brand" id="brand">
+        <img src="/assets/logo.png" alt="TikkoX logo" id="brandLogo">
         <span>TikkoX</span>
       </div>
       <a href="#why">Why TikkoX</a>
@@ -64,10 +75,12 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <img src="assets/logo.png" alt="TikkoX" style="width:110px;height:110px;opacity:.95">
+      <img src="/assets/logo.png" alt="TikkoX" style="width:110px;height:110px;opacity:.95">
       <h1>Welcome to TikkoX Blockchain</h1>
-      <p>A complete, integrated blockchain network powering the TKOX currency.
-      Fast, secure and developer-friendly. Explore live data, create your wallet, and build real apps on a modern Substrate-based chain.</p>
+      <p>
+        A complete, integrated blockchain network powering the TKOX currency.
+        Fast, secure and developer-friendly. Explore live data, create your wallet, and build real apps on a modern Substrate-based chain.
+      </p>
       <div class="cta">
         <a class="btn" href="https://explorer.tikkox.org">🚀 Explorer</a>
         <a class="btn" href="https://wallet.tikkox.org">👛 Wallet</a>
@@ -96,14 +109,34 @@
     <div class="wrap">
       <h2>Core products & status</h2>
       <div class="grid">
-        <div class="card"><b>Blockchain (TikkoX Chain)</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Substrate-based node with TKOX token and secure defaults.</p></div>
-        <div class="card"><b>Explorer</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Search blocks, tx and accounts with live WebSocket updates.</p><a class="btn" href="https://explorer.tikkox.org">Open Explorer</a></div>
-        <div class="card"><b>Wallet</b><div class="badges"><span class="badge">Completed</span></div><p class="muted">Create/secure accounts, hold TKOX and future multi-asset support.</p><a class="btn" href="https://wallet.tikkox.org">Open Wallet</a></div>
-        <div class="card"><b>TikkoX Pay</b><div class="badges"><span class="badge">In Progress</span></div><p class="muted">Integrated payments, transfers and trading inside the network UI.</p><a class="btn ghost" href="roadmap.html">See roadmap</a></div>
+        <div class="card">
+          <b>Blockchain (TikkoX Chain)</b>
+          <div class="badges"><span class="badge">Completed</span></div>
+          <p class="muted">Substrate-based node with TKOX token and secure defaults.</p>
+        </div>
+        <div class="card">
+          <b>Explorer</b>
+          <div class="badges"><span class="badge">Completed</span></div>
+          <p class="muted">Search blocks, tx and accounts with live WebSocket updates.</p>
+          <a class="btn" href="https://explorer.tikkox.org">Open Explorer</a>
+        </div>
+        <div class="card">
+          <b>Wallet</b>
+          <div class="badges"><span class="badge">Completed</span></div>
+          <p class="muted">Create/secure accounts, hold TKOX and future multi-asset support.</p>
+          <a class="btn" href="https://wallet.tikkox.org">Open Wallet</a>
+        </div>
+        <div class="card">
+          <b>TikkoX Pay</b>
+          <div class="badges"><span class="badge">In Progress</span></div>
+          <p class="muted">Integrated payments, transfers and trading inside the network UI.</p>
+          <a class="btn ghost" href="roadmap.html">See roadmap</a>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- DEVELOPERS -->
   <section id="developers">
     <div class="wrap">
       <h2>Developers</h2>
@@ -116,6 +149,7 @@
     </div>
   </section>
 
+  <!-- COMMUNITY -->
   <section id="community">
     <div class="wrap">
       <h2>Community</h2>
@@ -144,7 +178,35 @@
   </div>
 </footer>
 
-<!-- TikkoX Bot -->
+<!-- TikkoX AI Chatbot -->
 <script src="/bot/tikkox-bot.js" defer></script>
+
+<!-- Entry animations: favicon swap + header bounce when user enters from outside -->
+<script>
+(function(){
+  const fromExternal = document.referrer && !document.referrer.includes(location.hostname);
+  const brand = document.getElementById('brand');
+  const logo = document.getElementById('brandLogo');
+
+  // Header logo bounce & pulse when coming from another site/app
+  if(fromExternal){
+    brand.classList.add('bounce');
+    logo.classList.add('pulse');
+    setTimeout(()=>{ brand.classList.remove('bounce'); }, 2000);
+  }
+
+  // Favicon swap to simulate "moving icon" for a few seconds
+  const fav1 = '/assets/favicon-1.png';
+  const fav2 = '/assets/favicon-2.png';
+  let n=0, max=10; // ~5s
+  const link = document.createElement('link');
+  link.rel = 'icon'; document.head.appendChild(link);
+  const timer = setInterval(()=>{
+    link.href = (n%2===0)? fav1 : fav2;
+    n++; if(n>max) clearInterval(timer);
+  }, 500);
+})();
+</script>
+
 </body>
 </html>
