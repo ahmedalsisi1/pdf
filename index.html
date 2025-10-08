@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TikkoX • Official Blockchain Network</title>
   <meta name="description" content="Official website of TikkoX Blockchain and TKOX currency. Explorer, Wallet, Pay platform, docs and roadmap." />
-  <link rel="icon" type="image/png" href="/assets/favicon-1.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#000000">
+  <link rel="icon" type="image/png" href="/assets/logo.png" />
+
+  <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
@@ -19,17 +19,12 @@
     .wrap{max-width:1200px;margin:auto;padding:14px 20px}
     nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-    .brand img{width:34px;height:34px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-    .brand.bounce img{transform:translateY(-6px) rotate(-8deg)}
+    .brand img{width:34px;height:34px}
     .spacer{flex:1}
     .btn{border:1px solid var(--fg);padding:10px 14px;border-radius:10px;display:inline-block;transition:.2s}
     .btn:hover{transform:translateY(-1px)}
     .btn.ghost{border-color:var(--fg2)}
-    .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:48px 20px;background:radial-gradient(ellipse at center,#111 0%,#000 60%);position:relative;overflow:hidden}
-    /* Rotating faint giant logo in hero */
-    .hero::before{content:"";position:absolute;inset:-25%;background:url('/assets/tikkox-logo-gold.png') no-repeat center/60%;
-      filter:opacity(.12) drop-shadow(0 0 10px #d4af37);animation:tkx-spin 55s linear infinite;pointer-events:none}
-    @keyframes tkx-spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}
+    .hero{min-height:72vh;display:grid;place-items:center;text-align:center;padding:48px 20px;background:radial-gradient(ellipse at center,#111 0%,#000 60%)}
     .hero h1{font-size:40px;margin:16px 0}
     .hero p{color:var(--fg2);max-width:760px;margin:0 auto 22px;line-height:1.85}
     .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -44,10 +39,6 @@
     .social{margin-top:20px;display:flex;justify-content:center;gap:14px}
     .social a{width:36px;height:36px;border:1px solid var(--fg);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:.2s;font-size:16px}
     .social a:hover{background:var(--fg);color:var(--bg)}
-
-    /* Entry mini-logo animation (favicon swap) */
-    @keyframes tkx-pulse {0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)}}
-    .brand img.pulse {animation: tkx-pulse 1.2s ease-in-out 3}
   </style>
 </head>
 <body>
@@ -55,8 +46,8 @@
 <header>
   <div class="wrap">
     <nav>
-      <div class="brand" id="brand">
-        <img src="/assets/logo.png" alt="TikkoX logo" id="brandLogo">
+      <div class="brand">
+        <img src="/assets/logo.png" alt="TikkoX logo">
         <span>TikkoX</span>
       </div>
       <a href="#why">Why TikkoX</a>
@@ -75,7 +66,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <img src="/assets/logo.png" alt="TikkoX" style="width:110px;height:110px;opacity:.95">
+      <img src="assets/logo.png" alt="TikkoX" style="width:110px;height:110px;opacity:.95">
       <h1>Welcome to TikkoX Blockchain</h1>
       <p>
         A complete, integrated blockchain network powering the TKOX currency.
@@ -178,35 +169,229 @@
   </div>
 </footer>
 
-<!-- TikkoX AI Chatbot -->
-<script src="/bot/tikkox-bot.js" defer></script>
-
-<!-- Entry animations: favicon swap + header bounce when user enters from outside -->
+<!-- ===================== TikkoX AI (Inline) ===================== -->
+<style>
+  .tkx-bot-toggle{position:fixed;right:16px;bottom:16px;z-index:9998;width:56px;height:56px;border-radius:50%;
+    border:1px solid #d4af37;background:#0b0b0b url('/assets/tikkox-logo-gold.png') no-repeat center/72%;
+    box-shadow:0 6px 18px rgba(0,0,0,.5);cursor:pointer}
+  .tkx-bot-panel{position:fixed;right:16px;bottom:84px;width:360px;max-height:72vh;z-index:9999;background:#0b0b0b;
+    border:1px solid #d4af37;border-radius:14px;display:none;overflow:hidden}
+  .tkx-bot-header{display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid #151515;background:#0a0a0a}
+  .tkx-bot-header img{width:26px;height:26px}
+  .tkx-bot-header .ttl{font-weight:700;color:#d4af37}
+  .tkx-bot-feed{padding:12px;height:360px;overflow:auto;background:radial-gradient(ellipse at top,#111 0%,#000 70%)}
+  .tkx-msg{display:flex;gap:8px;margin:8px 0}
+  .tkx-msg.bot .bubble{background:#121212;border:1px solid #2a2a2a}
+  .tkx-msg.user{justify-content:flex-end}
+  .tkx-msg .bubble{max-width:78%;padding:10px 12px;border-radius:12px;color:#d4af37}
+  .tkx-msg.user .bubble{background:#1a1a1a;border:1px solid #3a3a3a}
+  .tkx-bot-input{display:flex;gap:8px;padding:10px;border-top:1px solid #151515;background:#0a0a0a}
+  .tkx-bot-input input{flex:1;background:#000;color:#c9b27a;border:1px solid #d4af37;border-radius:10px;padding:10px 12px;outline:none}
+  .tkx-bot-input button{border:0;background:#d4af37;color:#111;font-weight:700;border-radius:10px;padding:10px 12px;cursor:pointer}
+  .tkx-kb-chip{display:inline-block;border:1px solid #d4af37;border-radius:999px;padding:4px 8px;margin:4px 4px 0 0;color:#d4af37;cursor:pointer;font-size:12px}
+  .tkx-cmd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#111; border:1px solid #333; border-radius:8px; padding:2px 6px}
+  .tkx-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tkx-links a{border:1px solid #d4af37;border-radius:999px;padding:6px 10px;color:#d4af37;text-decoration:none}
+</style>
 <script>
-(function(){
-  const fromExternal = document.referrer && !document.referrer.includes(location.hostname);
-  const brand = document.getElementById('brand');
-  const logo = document.getElementById('brandLogo');
+(()=>{"use strict";
+  const META={bot_name:"TikkoX AI",brand:"TikkoX",token:"TKOX",price_usd:"0.05",decimals:"8",
+    total_supply:"21,999,999",circulating_at_launch:"2,999,999",
+    explorer_url:"https://explorer.tikkox.org",wallet_url:"https://wallet.tikkox.org",
+    docs_url:"https://tikkox.org/docs",roadmap_url:"roadmap.html",
+    contact_email:"ifhsihfhgs@gmail.com",support_url:"mailto:ifhsihfhgs@gmail.com"};
 
-  // Header logo bounce & pulse when coming from another site/app
-  if(fromExternal){
-    brand.classList.add('bounce');
-    logo.classList.add('pulse');
-    setTimeout(()=>{ brand.classList.remove('bounce'); }, 2000);
+  const LINKS=[
+    {k:"explorer",url:META.explorer_url,label_en:"Open Explorer",label_ar:"افتح المستكشف"},
+    {k:"wallet",url:META.wallet_url,label_en:"Open Wallet",label_ar:"افتح المحفظة"},
+    {k:"docs",url:META.docs_url,label_en:"Read Docs",label_ar:"اقرأ الوثائق"},
+    {k:"roadmap",url:META.roadmap_url,label_en:"Roadmap",label_ar:"خارطة الطريق"},
+    {k:"support",url:META.support_url,label_en:"Email Support",label_ar:"راسل الدعم"}
+  ];
+
+  const store={get userKB(){try{return JSON.parse(localStorage.getItem("tkx_user_kb")||"[]")}catch{return[]}},
+    set userKB(v){localStorage.setItem("tkx_user_kb",JSON.stringify(v))},
+    get meta(){try{return JSON.parse(localStorage.getItem("tkx_meta_overrides")||"{}")}catch{return{}}},set meta(v){localStorage.setItem("tkx_meta_overrides",JSON.stringify(v))},
+    get lang(){return localStorage.getItem("tkx_lang")||""},set lang(v){localStorage.setItem("tkx_lang",v)},
+    reset(){localStorage.removeItem("tkx_user_kb");localStorage.removeItem("tkx_meta_overrides");localStorage.removeItem("tkx_lang")}};
+  Object.assign(META, store.meta);
+
+  const $=q=>document.querySelector(q);
+  function addMsg(role,html){const f=$(".tkx-bot-feed");const w=document.createElement("div");w.className="tkx-msg "+role;const b=document.createElement("div");b.className="bubble";b.innerHTML=html;w.appendChild(b);f.appendChild(w);f.scrollTop=f.scrollHeight}
+  function regMatch(pats,txt){txt=(txt||"").toLowerCase().trim();return pats.some(p=>new RegExp(p,"i").test(txt))}
+  function detectLang(text=""){ if(store.lang) return store.lang; const nav=(navigator.language||"en").slice(0,2).toLowerCase(); const ar=/[\u0600-\u06FF]/.test(text); return ar?"ar":(nav==="ar"?"ar":"en"); }
+  function detectSentiment(txt){txt=(txt||"").toLowerCase();if(/[😂🤣😆😄]/.test(txt)||/(haha|lol|هههه)/i.test(txt))return"joy";if(/[😢😭😞😔]/.test(txt)||/(sad|حزين|محبط)/i.test(txt))return"sad";if(/[😡🤬]/.test(txt)||/(angry|غاضب)/i.test(txt))return"angry";if(/[🤔😕]/.test(txt)||/(confused|مش فاهم|مو فاهم|صعب)/i.test(txt))return"confused";return"neutral"}
+
+  const KB=[
+    {name:"greeting",patterns:["^hi","^hello","^hey","^yo","^مرحبا","^هلا","^سلام","^اهلا"],
+      reply_en:()=>`Hi! I’m <b>${META.bot_name}</b> 🤖 — ask me about <b>${META.token}</b>, prices, wallet, explorer, or building on TikkoX.`,
+      reply_ar:()=>`مرحبًا! أنا <b>${META.bot_name}</b> 🤖 — اسألني عن <b>${META.token}</b>، الأسعار، المحفظة، المستكشف أو التطوير على TikkoX.`},
+    {name:"price",patterns:["price","سعر","tkox price","كم سعر"],
+      reply_en:()=>`Official initial price of <b>${META.token}</b> is <b>$${META.price_usd}</b>.`,
+      reply_ar:()=>`السعر الابتدائي الرسمي لعملة <b>${META.token}</b> هو <b>$${META.price_usd}</b>.`},
+    {name:"decimals",patterns:["decimal","decimals","كم رقم عشري","العشري"],
+      reply_en:()=>`<b>${META.token}</b> uses <b>${META.decimals}</b> decimals.`,
+      reply_ar:()=>`الرقم العشري لعملة <b>${META.token}</b> هو <b>${META.decimals}</b>.`},
+    {name:"supply",patterns:["supply","total supply","circulating","العرض","الاجمالي","المتداول"],
+      reply_en:()=>`Total: <b>${META.total_supply} ${META.token}</b> — Circulating at launch: <b>${META.circulating_at_launch} ${META.token}</b>.`,
+      reply_ar:()=>`الإجمالي: <b>${META.total_supply} ${META.token}</b> — المتداول عند الإطلاق: <b>${META.circulating_at_launch} ${META.token}</b>.`},
+    {name:"about",patterns:["what is tikko","about","ما هي","وش هي","tikkox"],
+      reply_en:()=>`<b>${META.brand}</b> is a Substrate-based blockchain with Explorer, Wallet, and TikkoX Pay (coming).`,
+      reply_ar:()=>`<b>${META.brand}</b> شبكة بلوكشين مبنية على Substrate، مع Explorer وWallet وTikkoX Pay (قريبًا).`},
+    {name:"wallet",patterns:["wallet","محفظة","create wallet","انشئ محفظة"],
+      reply_en:()=>`Wallet: <a target="_blank" href="${META.wallet_url}">${META.wallet_url}</a> (coming).`,
+      reply_ar:()=>`المحفظة: <a target="_blank" href="${META.wallet_url}">${META.wallet_url}</a> (قريبًا).`},
+    {name:"explorer",patterns:["explorer","المستكشف","explore","block","tx","account"],
+      reply_en:()=>`Explorer: <a target="_blank" href="${META.explorer_url}">${META.explorer_url}</a> (coming).`,
+      reply_ar:()=>`المستكشف: <a target="_blank" href="${META.explorer_url}">${META.explorer_url}</a> (قريبًا).`},
+    {name:"docs",patterns:["docs","وثائق","documentation","developer","sdk"],
+      reply_en:()=>`Docs: <a target="_blank" href="${META.docs_url}">${META.docs_url}</a>`,
+      reply_ar:()=>`الوثائق: <a target="_blank" href="${META.docs_url}">${META.docs_url}</a>`},
+    {name:"contact",patterns:["email","contact","تواصل","بريد","support"],
+      reply_en:()=>`Reach us at <b>${META.contact_email}</b> or <a href="${META.support_url}">support</a>.`,
+      reply_ar:()=>`راسلنا على <b>${META.contact_email}</b> أو <a href="${META.support_url}">الدعم</a>.`},
+    {name:"laugh",patterns:["😂","🤣","هه","هاها","lol","lmao"],
+      reply_en:()=>`Hahaha 😄 Love the vibe! How can I help next?`,
+      reply_ar:()=>`ههههه 😄 جو جميل! كيف أقدر أفيدك؟`}
+  ];
+
+  function searchTaught(txt){
+    const t=(txt||"").toLowerCase();
+    const arr = (()=>{
+      try{ return JSON.parse(localStorage.getItem("tkx_user_kb")||"[]") }catch{return []}
+    })();
+    for(const it of arr){ if(t.includes(it.q.toLowerCase())) return it.a; }
+    return null;
   }
 
-  // Favicon swap to simulate "moving icon" for a few seconds
-  const fav1 = '/assets/favicon-1.png';
-  const fav2 = '/assets/favicon-2.png';
-  let n=0, max=10; // ~5s
-  const link = document.createElement('link');
-  link.rel = 'icon'; document.head.appendChild(link);
-  const timer = setInterval(()=>{
-    link.href = (n%2===0)? fav1 : fav2;
-    n++; if(n>max) clearInterval(timer);
-  }, 500);
+  function pickReply(txt,lang){
+    const taught = searchTaught(txt);
+    if(taught) return taught;
+    for(const it of KB){
+      if(regMatch(it.patterns, txt)) return (lang==="ar"?it.reply_ar():it.reply_en());
+    }
+    return (lang==="ar"? "سؤالك مهم. ممكن تفاصيل أكثر؟" : "Your question matters. One more detail?");
+  }
+
+  function doCommand(text,lang){
+    const t=text.trim();
+
+    if(t.startsWith("/teach ")){
+      const parts=t.replace("/teach ","").split("=>");
+      if(parts.length>=2){
+        const q=parts[0].trim(), a=parts.slice(1).join("=>").trim();
+        let arr=[]; try{arr=JSON.parse(localStorage.getItem("tkx_user_kb")||"[]")}catch{}
+        arr.push({q,a}); localStorage.setItem("tkx_user_kb", JSON.stringify(arr));
+        return (lang==="ar"?`تم الحفظ ✅<br>سأجيب عن "<b>${q}</b>" بالآتي:<br><b>${a}</b>`:`Saved ✅ I will answer “<b>${q}</b>” with:<br><b>${a}</b>`);
+      }
+      return (lang==="ar"?`استخدم: <span class="tkx-cmd">/teach سؤال => الإجابة</span>`:`Use: <span class="tkx-cmd">/teach question => answer</span>`);
+    }
+
+    if(t.startsWith("/set ")){
+      const [,key,...rest]=t.split(" ");
+      if(!key||rest.length===0)
+        return (lang==="ar"?`استخدم: <span class="tkx-cmd">/set key value</span>`:`Use: <span class="tkx-cmd">/set key value</span>`);
+      const value=rest.join(" ");
+      const m = (()=>{
+        try{ return JSON.parse(localStorage.getItem("tkx_meta_overrides")||"{}") }catch{return {}}
+      })();
+      m[key]=value; localStorage.setItem("tkx_meta_overrides", JSON.stringify(m));
+      return (lang==="ar"?`تم تعديل <b>${key}</b> إلى <b>${value}</b> ✅`:`Updated <b>${key}</b> → <b>${value}</b> ✅`);
+    }
+
+    if(t.startsWith("/forget ")){
+      const q=t.replace("/forget ","").trim();
+      let arr=[]; try{arr=JSON.parse(localStorage.getItem("tkx_user_kb")||"[]")}catch{}
+      arr=arr.filter(x=>x.q.toLowerCase()!==q.toLowerCase());
+      localStorage.setItem("tkx_user_kb", JSON.stringify(arr));
+      return (lang==="ar"?`تم حذف المعلومة الخاصة بـ “<b>${q}</b>” 🗑️`:`Removed learned entry for “<b>${q}</b>” 🗑️`);
+    }
+
+    if(t==="/reset"){
+      localStorage.removeItem("tkx_user_kb");
+      localStorage.removeItem("tkx_meta_overrides");
+      localStorage.removeItem("tkx_lang");
+      return (lang==="ar"?`تمت إعادة الضبط. رجعنا للوضع الافتراضي ✨`:`Reset complete. Back to default ✨`);
+    }
+
+    if(t.startsWith("/lang ")){
+      const l=t.split(" ")[1]?.trim().toLowerCase();
+      if(["ar","en"].includes(l)){ localStorage.setItem("tkx_lang", l); return (l==="ar"?`تم تعيين اللغة إلى <b>العربية</b> ✅`:`Language set to <b>English</b> ✅`); }
+      return (lang==="ar"?`اكتب: /lang ar أو /lang en`:`Type: /lang ar or /lang en`);
+    }
+
+    if(t==="/links"){
+      const parts = LINKS.map(l=>`<a target="_blank" href="${l.url}">${lang==="ar"?l.label_ar:l.label_en}</a>`).join("");
+      return `<div class="tkx-links">${parts}</div>`;
+    }
+
+    return null;
+  }
+
+  function mountUI(){
+    const root=document.createElement("div");
+    root.innerHTML=`
+      <button class="tkx-bot-toggle" title="Chat with TikkoX AI"></button>
+      <div class="tkx-bot-panel" role="dialog" aria-label="TikkoX AI chat">
+        <div class="tkx-bot-header">
+          <img src="/assets/tikkox-logo-gold.png" alt="TikkoX" onerror="this.src='/assets/logo.png'">
+          <div class="ttl">TikkoX AI</div>
+        </div>
+        <div class="tkx-bot-feed" aria-live="polite"></div>
+        <div class="tkx-bot-input">
+          <input placeholder="Type here… / اكتب سؤالك هنا…" aria-label="Type a message">
+          <button type="button">Send</button>
+        </div>
+      </div>`;
+    document.body.appendChild(root);
+
+    const toggle=$(".tkx-bot-toggle");
+    const panel=$(".tkx-bot-panel");
+    const btn=$(".tkx-bot-input button");
+    const inp=$(".tkx-bot-input input");
+
+    function greet(){
+      const lang=detectLang();
+      addMsg("bot", lang==="ar"
+        ? `أنا <b>${META.bot_name}</b> 🤖 — اسألني عن <b>${META.token}</b>، الأسعار، المحفظة، المستكشف أو التطوير على TikkoX.`
+        : `I’m <b>${META.bot_name}</b> 🤖 — ask me about <b>${META.token}</b>, prices, wallet, explorer, or building on TikkoX.`);
+      addMsg("bot", lang==="ar"
+        ? `علّمني بـ <span class="tkx-cmd">/teach سؤال => الإجابة</span> • عدّل بـ <span class="tkx-cmd">/set key value</span> • احذف بـ <span class="tkx-cmd">/forget سؤال</span> • إعادة ضبط <span class="tkx-cmd">/reset</span> • اللغة <span class="tkx-cmd">/lang ar|en</span> • الروابط <span class="tkx-cmd">/links</span>`
+        : `Teach <span class="tkx-cmd">/teach question => answer</span> • Edit <span class="tkx-cmd">/set key value</span> • Forget <span class="tkx-cmd">/forget question</span> • Reset <span class="tkx-cmd">/reset</span> • Language <span class="tkx-cmd">/lang ar|en</span> • Links <span class="tkx-cmd">/links</span>`);
+      const chips=document.createElement("div"); chips.style.marginTop="6px";
+      ["Price","Supply","Decimals","Wallet","Explorer","Docs","Roadmap","Support"].forEach(t=>{
+        const c=document.createElement("span"); c.className="tkx-kb-chip"; c.textContent=t; c.onclick=()=>send(t); chips.appendChild(c);
+      });
+      $(".tkx-bot-feed").appendChild(chips);
+    }
+
+    function send(text){
+      const val=(text||inp.value||"").trim(); if(!val) return;
+      addMsg("user", val); inp.value="";
+      const lang=detectLang(val);
+      const cmd=doCommand(val, lang);
+      if(cmd){ addMsg("bot", cmd); return; }
+      const snt=detectSentiment(val);
+      const flair=(lang==="ar"?{joy:" 😄",sad:" 🙏",angry:" 🤝",confused:" 🤔",neutral:""}:{joy:" 😄",sad:" 🙏",angry:" 🤝",confused:" 🤔",neutral:""});
+      let reply = pickReply(val, lang) + (flair[snt]||"");
+      // اقتراح روابط عند التعثر
+      if(/(i can't|cannot|dont know|مش فاهم|مو فاهم|صعب|مشكلة|error|help|كيف|أين|وين|link|رابط)/i.test(val)){
+        const parts = LINKS.map(l=>`<a target="_blank" href="${l.url}">${lang==="ar"?l.label_ar:l.label_en}</a>`).join("");
+        reply += "<br><div class='tkx-links'>"+parts+"</div>";
+      }
+      addMsg("bot", reply);
+    }
+
+    toggle.onclick=()=>{ panel.style.display=(panel.style.display==="block")?"none":"block"; if(panel.style.display==="block" && !$(".tkx-bot-feed").children.length) greet(); };
+    btn.onclick=()=>send();
+    inp.addEventListener("keydown",e=>{ if(e.key==="Enter") send(); });
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", mountUI);
+  else mountUI();
 })();
 </script>
+<!-- =================== /TikkoX AI =================== -->
 
 </body>
 </html>
